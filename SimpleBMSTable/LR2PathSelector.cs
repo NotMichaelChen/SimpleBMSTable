@@ -22,28 +22,28 @@ namespace SimpleBMSTable
         public LR2PathSelector(string p)
         {
             InitializeComponent();
-            textBox1.Text = p;
+            FolderTextBox.Text = p;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void ButtonSelectFolder_Click(object sender, EventArgs e)
         {
             var dialog = new FolderBrowserDialog();
             DialogResult result = dialog.ShowDialog();
             if(result == DialogResult.OK)
             {
-                textBox1.Text = dialog.SelectedPath;
+                FolderTextBox.Text = dialog.SelectedPath;
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void ButtonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void ButtonOK_Click(object sender, EventArgs e)
         {
-            path = textBox1.Text;
+            path = FolderTextBox.Text;
             this.DialogResult = DialogResult.OK;
             this.Close();
         }

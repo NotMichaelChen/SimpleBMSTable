@@ -12,16 +12,22 @@ namespace SimpleBMSTable
 {
     public partial class MainWindow : Form
     {
-        private string LR2folderpath;
+        string LR2FolderPath;
 
         public MainWindow()
         {
+            LR2FolderPath = "";
             InitializeComponent();
         }
 
         private void selectLR2FolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            LR2PathSelector win2 = new LR2PathSelector(LR2FolderPath);
+            DialogResult result = win2.ShowDialog();
+            if(result == DialogResult.OK)
+            {
+                LR2FolderPath = win2.LR2Path;
+            }
         }
     }
 }
