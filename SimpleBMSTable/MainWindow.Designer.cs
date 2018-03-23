@@ -1,6 +1,6 @@
 ﻿namespace SimpleBMSTable
 {
-    partial class Form1
+    partial class MainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -54,7 +54,7 @@
             // 
             // buton1
             // 
-            this.buton1.Location = new System.Drawing.Point(401, 25);
+            this.buton1.Location = new System.Drawing.Point(367, 25);
             this.buton1.Name = "buton1";
             this.buton1.Size = new System.Drawing.Size(75, 23);
             this.buton1.TabIndex = 2;
@@ -65,16 +65,16 @@
             // 
             this.textBox1.Location = new System.Drawing.Point(13, 28);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(382, 20);
+            this.textBox1.Size = new System.Drawing.Size(348, 20);
             this.textBox1.TabIndex = 1;
             // 
             // comboBox1
             // 
             this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(13, 89);
+            this.comboBox1.Location = new System.Drawing.Point(12, 89);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(461, 21);
+            this.comboBox1.Size = new System.Drawing.Size(430, 21);
             this.comboBox1.TabIndex = 3;
             // 
             // button3
@@ -131,15 +131,15 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(486, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(454, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // Form1
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(486, 372);
+            this.ClientSize = new System.Drawing.Size(454, 325);
             this.Controls.Add(label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button3);
@@ -147,10 +147,8 @@
             this.Controls.Add(this.buton1);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.menuStrip1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "MainWindow";
             this.Text = "SimpleBMSTable";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
