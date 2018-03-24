@@ -46,7 +46,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(13, 70);
+            label1.Location = new System.Drawing.Point(13, 91);
             label1.Name = "label1";
             label1.Size = new System.Drawing.Size(39, 13);
             label1.TabIndex = 6;
@@ -54,32 +54,34 @@
             // 
             // ButtonLoadURL
             // 
-            this.ButtonLoadURL.Location = new System.Drawing.Point(401, 25);
+            this.ButtonLoadURL.Location = new System.Drawing.Point(401, 54);
             this.ButtonLoadURL.Name = "ButtonLoadURL";
             this.ButtonLoadURL.Size = new System.Drawing.Size(75, 23);
             this.ButtonLoadURL.TabIndex = 2;
             this.ButtonLoadURL.Text = "Load URL";
             this.ButtonLoadURL.UseVisualStyleBackColor = true;
+            this.ButtonLoadURL.Click += new System.EventHandler(this.ButtonLoadURL_Click);
             // 
             // TextBoxURL
             // 
             this.TextBoxURL.Location = new System.Drawing.Point(13, 28);
             this.TextBoxURL.Name = "TextBoxURL";
-            this.TextBoxURL.Size = new System.Drawing.Size(382, 20);
+            this.TextBoxURL.Size = new System.Drawing.Size(463, 20);
             this.TextBoxURL.TabIndex = 1;
             // 
             // ComboBoxTable
             // 
             this.ComboBoxTable.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.ComboBoxTable.FormattingEnabled = true;
-            this.ComboBoxTable.Location = new System.Drawing.Point(13, 89);
+            this.ComboBoxTable.Location = new System.Drawing.Point(13, 110);
             this.ComboBoxTable.Name = "ComboBoxTable";
             this.ComboBoxTable.Size = new System.Drawing.Size(461, 21);
             this.ComboBoxTable.TabIndex = 3;
+            this.ComboBoxTable.SelectedIndexChanged += new System.EventHandler(this.ComboBoxTable_SelectedIndexChanged);
             // 
             // ButtonDeleteTable
             // 
-            this.ButtonDeleteTable.Location = new System.Drawing.Point(98, 116);
+            this.ButtonDeleteTable.Location = new System.Drawing.Point(98, 137);
             this.ButtonDeleteTable.Name = "ButtonDeleteTable";
             this.ButtonDeleteTable.Size = new System.Drawing.Size(80, 23);
             this.ButtonDeleteTable.TabIndex = 4;
@@ -88,7 +90,7 @@
             // 
             // ButtonLoadTable
             // 
-            this.ButtonLoadTable.Location = new System.Drawing.Point(12, 116);
+            this.ButtonLoadTable.Location = new System.Drawing.Point(12, 137);
             this.ButtonLoadTable.Name = "ButtonLoadTable";
             this.ButtonLoadTable.Size = new System.Drawing.Size(80, 23);
             this.ButtonLoadTable.TabIndex = 5;
@@ -106,7 +108,7 @@
             // selectLR2FolderToolStripMenuItem
             // 
             this.selectLR2FolderToolStripMenuItem.Name = "selectLR2FolderToolStripMenuItem";
-            this.selectLR2FolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.selectLR2FolderToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.selectLR2FolderToolStripMenuItem.Text = "Select LR2 Folder";
             this.selectLR2FolderToolStripMenuItem.Click += new System.EventHandler(this.selectLR2FolderToolStripMenuItem_Click);
             // 
@@ -121,7 +123,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // menuStrip1
@@ -152,6 +154,7 @@
             this.MaximizeBox = false;
             this.Name = "MainWindow";
             this.Text = "SimpleBMSTable";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainWindow_FormClosed);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
