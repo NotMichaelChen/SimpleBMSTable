@@ -89,6 +89,10 @@ namespace SimpleBMSTable.TableInfo
             //Optional headers won't be filled if they don't exist
             metadata = JsonConvert.DeserializeObject<TableHeader>(jsonheaderdata);
             jsonurl = ConstructURL(tableurl, metadata.data_url);
+
+            //Depends on jsonurl, call after assignment
+            if(metadata.level_order == null || metadata.level_order.Length == 0)
+                FillLevelOrder();
         }
 
         //Some sites may only link the name of the json header/table json, so we must construct the url ourselves
@@ -100,6 +104,35 @@ namespace SimpleBMSTable.TableInfo
                 return url.Substring(0, url.LastIndexOf('/') + 1) + newsection.Trim('/');
             }
             return newsection;
+        }
+
+        //If level_order in TableHeader is empty, fill it by iterating over the json body
+        //Do not call if level_order is not empty or if jsonurl is empty
+        private void FillLevelOrder()
+        {
+            List<TableEntry> charts = GetCharts();
+            //Actual list that will be converted into the string array
+            List<string> levels_order = new List<string>();
+            //Used to check for duplicates
+            HashSet<string> levels_set = new HashSet<string>();
+
+            //STRONG ASSUMPTION: assumes levels come in order from low to high
+            //May have to change if some tables misbehave
+            foreach(TableEntry i in charts)
+            {
+                if(!levels_set.Contains(i.level))
+                {
+                    levels_order.Add(i.level);
+                    levels_set.Add(i.level);
+                }
+            }
+
+            foreach(string i in levels_order)
+            {
+                Console.WriteLine(i);
+            }
+
+            metadata.level_order = levels_order.ToArray();
         }
     }
 }

@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 using SimpleBMSTable.TableInfo;
+using SimpleBMSTable.TableGenerators;
 
 namespace SimpleBMSTable
 {
@@ -91,6 +92,8 @@ namespace SimpleBMSTable
         //Save tables to "data.json" when application closes
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
+            //Safety measure: Set directory to executable path
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location));
             using(StreamWriter sw = new StreamWriter("data.json"))
             using(JsonWriter jw = new JsonTextWriter(sw))
             {
@@ -98,6 +101,78 @@ namespace SimpleBMSTable
                 data.Add("path", LR2path);
 
                 data.WriteTo(jw);
+            }
+        }
+
+        private void ButtonLoadTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string tablename = ComboBoxTable.Items[ComboBoxTable.SelectedIndex].ToString();
+
+                TagEditor editor = new TagEditor(LR2path, tables[tablename]);
+                CustomFolderGenerator gen = new CustomFolderGenerator(tables[tablename]);
+                editor.AssignTags();
+                //TODO: Allow a hard update to force regenerate the table
+                if(!gen.IsTableExists())
+                    gen.GenerateTable();
+
+                MessageBox.Show("Table loaded successfully\n\n" +
+                                               "You can use the difficulty tables by adding \"CustomFolder\" to LR2",
+                                               "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                //TODO: Make more descriptive errors
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void ButtonDeleteTable_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string tablename = ComboBoxTable.Items[ComboBoxTable.SelectedIndex].ToString();
+                DialogResult result = MessageBox.Show("Are you sure you want to delete table \"" + tablename + "\"?",
+                    "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if(result == DialogResult.Yes)
+                {
+
+                    TagEditor editor = new TagEditor(LR2path, tables[tablename]);
+                    CustomFolderGenerator gen = new CustomFolderGenerator(tables[tablename]);
+                    editor.RemoveTags();
+                    gen.DeleteTable();
+
+                    // Remove combo box entry
+                    ComboBoxTable.Items.RemoveAt(ComboBoxTable.SelectedIndex);
+
+                    // Remove table entry from private objects
+                    tables.Remove(tablename);
+                    usedurls.Remove(tablename);
+
+                    MessageBox.Show("Table removed successfully", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //Simple forces folder regeneration. Does not do tagging
+        private void ButtonRegenerate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string tablename = ComboBoxTable.Items[ComboBoxTable.SelectedIndex].ToString();
+                CustomFolderGenerator gen = new CustomFolderGenerator(tables[tablename]);
+                gen.GenerateTable();
+                MessageBox.Show("Table folders successfully regenerated", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -137,5 +212,6 @@ namespace SimpleBMSTable
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }

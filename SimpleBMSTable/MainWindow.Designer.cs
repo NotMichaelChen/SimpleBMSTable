@@ -39,6 +39,7 @@
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.ButtonRegenerate = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +88,7 @@
             this.ButtonDeleteTable.TabIndex = 4;
             this.ButtonDeleteTable.Text = "Delete Table";
             this.ButtonDeleteTable.UseVisualStyleBackColor = true;
+            this.ButtonDeleteTable.Click += new System.EventHandler(this.ButtonDeleteTable_Click);
             // 
             // ButtonLoadTable
             // 
@@ -96,6 +98,7 @@
             this.ButtonLoadTable.TabIndex = 5;
             this.ButtonLoadTable.Text = "Load Table";
             this.ButtonLoadTable.UseVisualStyleBackColor = true;
+            this.ButtonLoadTable.Click += new System.EventHandler(this.ButtonLoadTable_Click);
             // 
             // fileToolStripMenuItem
             // 
@@ -137,11 +140,22 @@
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
+            // ButtonRegenerate
+            // 
+            this.ButtonRegenerate.Location = new System.Drawing.Point(184, 137);
+            this.ButtonRegenerate.Name = "ButtonRegenerate";
+            this.ButtonRegenerate.Size = new System.Drawing.Size(108, 23);
+            this.ButtonRegenerate.TabIndex = 7;
+            this.ButtonRegenerate.Text = "Regenerate Folder";
+            this.ButtonRegenerate.UseVisualStyleBackColor = true;
+            this.ButtonRegenerate.Click += new System.EventHandler(this.ButtonRegenerate_Click);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(486, 372);
+            this.Controls.Add(this.ButtonRegenerate);
             this.Controls.Add(label1);
             this.Controls.Add(this.ButtonLoadTable);
             this.Controls.Add(this.ButtonDeleteTable);
@@ -173,6 +187,7 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.Button ButtonLoadURL;
+        private System.Windows.Forms.Button ButtonRegenerate;
     }
 }
 
