@@ -23,7 +23,7 @@ namespace SimpleBMSTable.TableInfo
         public BMSTable(string url)
         {
             tableurl = url.Trim();
-            
+
             //Get header url and download header data
             //Code is the same so just use this method to avoid code duplication
             UpdateTable();
@@ -68,13 +68,13 @@ namespace SimpleBMSTable.TableInfo
             HtmlDocument table = htmlclient.Load(tableurl);
 
             string jsonheader = "";
-            foreach (HtmlNode node in table.DocumentNode.SelectNodes("//meta"))
+            foreach(HtmlNode node in table.DocumentNode.SelectNodes("//meta"))
             {
-                if (node.Attributes["name"] != null && node.Attributes["name"].Value == "bmstable")
+                if(node.Attributes["name"] != null && node.Attributes["name"].Value == "bmstable")
                     jsonheader = node.Attributes["content"].Value;
             }
 
-            if (jsonheader == "")
+            if(jsonheader == "")
                 throw new Exception("Error: table url is invalid");
 
             headerurl = ConstructURL(tableurl, jsonheader);
@@ -97,7 +97,7 @@ namespace SimpleBMSTable.TableInfo
             if(!newsection.StartsWith("http"))
             {
                 //the +1 allows us to include the slash
-                return url.Substring(0, url.LastIndexOf('/')+1) + newsection.Trim('/');
+                return url.Substring(0, url.LastIndexOf('/') + 1) + newsection.Trim('/');
             }
             return newsection;
         }

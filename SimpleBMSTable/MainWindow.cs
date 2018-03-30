@@ -13,8 +13,6 @@ using Newtonsoft.Json.Linq;
 
 using SimpleBMSTable.TableInfo;
 
-//TODO: Figure out how to disable visual studio's if-statement formatting
-
 namespace SimpleBMSTable
 {
     public partial class MainWindow : Form
@@ -51,7 +49,7 @@ namespace SimpleBMSTable
         {
             string url = TextBoxURL.Text;
 
-            if (usedurls.Contains(url))
+            if(usedurls.Contains(url))
             {
                 MessageBox.Show("Error: Table already loaded", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -68,7 +66,7 @@ namespace SimpleBMSTable
 
                     MessageBox.Show("Table added successfully", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                catch (Exception ex)
+                catch(Exception ex)
                 {
                     //TODO: Make more descriptive errors
                     MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -84,7 +82,7 @@ namespace SimpleBMSTable
                 string tablename = ComboBoxTable.Items[ComboBoxTable.SelectedIndex].ToString();
                 tables[tablename].UpdateTable();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -93,8 +91,8 @@ namespace SimpleBMSTable
         //Save tables to "data.json" when application closes
         private void MainWindow_FormClosed(object sender, FormClosedEventArgs e)
         {
-            using (StreamWriter sw = new StreamWriter("data.json"))
-            using (JsonWriter jw = new JsonTextWriter(sw))
+            using(StreamWriter sw = new StreamWriter("data.json"))
+            using(JsonWriter jw = new JsonTextWriter(sw))
             {
                 JObject data = JObject.FromObject(tables);
                 data.Add("path", LR2path);
@@ -108,7 +106,7 @@ namespace SimpleBMSTable
         {
             try
             {
-                if (File.Exists("data.json"))
+                if(File.Exists("data.json"))
                 {
                     string data = File.ReadAllText("data.json");
                     tables = JsonConvert.DeserializeObject<Dictionary<string, BMSTable>>(data);
