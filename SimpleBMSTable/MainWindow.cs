@@ -109,13 +109,21 @@ namespace SimpleBMSTable
                 if(File.Exists("data.json"))
                 {
                     string data = File.ReadAllText("data.json");
-                    tables = JsonConvert.DeserializeObject<Dictionary<string, BMSTable>>(data);
-                    //TODO: Fix hack
-                    tables.Remove("path");
 
                     JObject dataobject = (JObject)JsonConvert.DeserializeObject(data);
+                    //Get path
                     LR2path = dataobject["path"].Value<string>();
+                    //Get tables
+                    foreach(KeyValuePair<string, JToken> kv in dataobject)
+                    {
+                        //Ignore keys that are "path"
+                        if(kv.Key != "path")
+                        {
+                            tables.Add(kv.Key, kv.Value.ToObject<BMSTable>());
+                        }
+                    }
 
+                    //Put table names in the combobox and usedurl's set
                     foreach(string name in tables.Keys)
                     {
                         ComboBoxTable.Items.Add(name);
@@ -125,8 +133,6 @@ namespace SimpleBMSTable
             }
             catch
             {
-                //Ensure something gets assigned to tables
-                tables = new Dictionary<string, BMSTable>();
                 MessageBox.Show("Error loading data file\nThis should be fixed after the application closes",
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
