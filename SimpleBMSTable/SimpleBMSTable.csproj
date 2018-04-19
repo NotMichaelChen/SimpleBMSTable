@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainAboutBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainAboutBox.Designer.cs">
+      <DependentUpon>MainAboutBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -90,6 +96,9 @@
     <Compile Include="TableInfo\TableEntry.cs" />
     <Compile Include="TableInfo\TableHeader.cs" />
     <Compile Include="Utils.cs" />
+    <EmbeddedResource Include="MainAboutBox.resx">
+      <DependentUpon>MainAboutBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </EmbeddedResource>

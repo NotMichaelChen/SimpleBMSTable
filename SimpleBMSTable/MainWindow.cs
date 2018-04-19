@@ -176,6 +176,12 @@ namespace SimpleBMSTable
             }
         }
 
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainAboutBox about = new MainAboutBox();
+            about.ShowDialog();
+        }
+
         //Loads tables from "data.json" if it exists
         private void LoadTables()
         {
