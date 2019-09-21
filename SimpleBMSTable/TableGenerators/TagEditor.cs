@@ -45,20 +45,34 @@ namespace SimpleBMSTable.TableGenerators
             RemoveTags();
 
             dbconnection.Open();
-
-            foreach(TableEntry entry in table.GetCharts())
+            
+            using(var transaction = dbconnection.BeginTransaction())
             {
-                string tag = ",t" + table.Symbol + (leveldecoder[entry.level]+1).ToString().PadLeft(Constants.PADDING, '0');
+                try
+                {
+                    foreach(TableEntry entry in table.GetCharts())
+                    {
+                        string tag = ",t" + table.Symbol + (leveldecoder[entry.level] + 1).ToString().PadLeft(Constants.PADDING, '0');
 
-                //Skip entries without a hash
-                if(String.IsNullOrEmpty(entry.md5))
-                    continue;
+                        //Skip entries without a hash
+                        if(string.IsNullOrEmpty(entry.md5))
+                            continue;
 
-                //Check that the song isn't already tagged
-                string rawcommand = "UPDATE song SET tag = IFNULL(tag, '') || '" + tag + "' WHERE IFNULL(hash, '')='" + entry.md5 + "' AND NOT IFNULL(tag, '') LIKE '%" + tag + "%'";
-                SQLiteCommand command = new SQLiteCommand(rawcommand, dbconnection);
-                command.ExecuteNonQuery();
-                command.Dispose();
+                        //Check that the song isn't already tagged
+                        string rawcommand = "UPDATE song SET tag = IFNULL(tag, '') || '" + tag + "' WHERE IFNULL(hash, '')='" + entry.md5 + "' AND NOT IFNULL(tag, '') LIKE '%" + tag + "%'";
+                        using(SQLiteCommand command = new SQLiteCommand(rawcommand, dbconnection, transaction))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
+                transaction.Commit();
             }
 
             dbconnection.Close();
@@ -71,19 +85,34 @@ namespace SimpleBMSTable.TableGenerators
         {
             dbconnection.Open();
 
-            string[] levelorder = table.LevelOrder;
-
-            for(int i = 0; i < table.LevelOrder.Length; ++i)
+            using(var transaction = dbconnection.BeginTransaction())
             {
-                string tag = ",t" + table.Symbol + (i+1).ToString().PadLeft(Constants.PADDING, '0');
+                try
+                {
+                    string[] levelorder = table.LevelOrder;
 
-                string rawcommand = "UPDATE song SET tag = REPLACE(tag, '" + tag + "', '') WHERE IFNULL(tag, '') LIKE '%" + tag + "%'";
-                SQLiteCommand command = new SQLiteCommand(rawcommand, dbconnection);
-                command.ExecuteNonQuery();
-                command.Dispose();
+                    for(int i = 0; i < table.LevelOrder.Length; ++i)
+                    {
+                        string tag = ",t" + table.Symbol + (i+1).ToString().PadLeft(Constants.PADDING, '0');
+
+                        string rawcommand = "UPDATE song SET tag = REPLACE(tag, '" + tag + "', '') WHERE IFNULL(tag, '') LIKE '%" + tag + "%'";
+                        using(SQLiteCommand command = new SQLiteCommand(rawcommand, dbconnection, transaction))
+                        {
+                            command.ExecuteNonQuery();
+                        }
+                    }
+                }
+                catch(Exception e)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+
+                transaction.Commit();
             }
 
             dbconnection.Close();
+            SQLiteConnection.ClearAllPools();
         }
     }
 }
