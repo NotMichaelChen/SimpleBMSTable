@@ -4,6 +4,10 @@ A minimal difficulty table manager for LR2 that is designed to be a simple as po
 
 ![alt text](https://i.imgur.com/jbt6852.png "SimpleBMSTable")
 
+# Downloads
+
+[Click me to go to the downloads page. Make sure you grab the "SimpleBMSTable.zip" file](https://github.com/NotMichaelChen/SimpleBMSTable/releases)
+
 # Basic Usage
 
 1. Go to File->Select LR2 Folder, and navigate to the folder containing the LR2 executable. Click OK.
